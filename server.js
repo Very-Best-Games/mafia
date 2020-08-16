@@ -27,3 +27,41 @@
 // 6. Показываем всех пользователей в комнатах
 
 // node server.js
+
+
+const express = require('express')
+const app = express()
+const port = 3000
+const rooms = require('./ rooms');
+
+
+// Homepage
+app.get('/', (req, res) => {
+    res.send('Hello to app');
+})
+
+
+// Список комнат
+app.get('/all-rooms', (req, res) => {
+  res.send(rooms.getAllRooms());
+})
+
+
+// Комната
+app.get('/room/{id}', (req, res) => {
+    res.send(rooms.getRoomById(id));
+  })
+
+app.get('/create-room', (req, res) => {
+    res.send(rooms.addRoom());
+})
+
+app.get('/join-room/:room_id/:user_name', (req, res) => {
+    res.send(rooms.join_room(req.params["room_id"], req.params["user_name"]))
+})
+
+
+//listener
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+})
