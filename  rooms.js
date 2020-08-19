@@ -1,6 +1,6 @@
-console.log('Running rooms.js');
-
-const ROOMS = new Array(); 
+// const ROOMS = new Array();
+const ROOMS =[];
+ROOMS.push(new Room());
 
 function Room() {
     this.id = ROOMS.length + 1;
@@ -35,16 +35,17 @@ module.exports.getRoomById = (id_room) => {
 };
 
 module.exports.getAllRooms = () => {
-    return (ROOMS.entries['id']);
+    return JSON.stringify(ROOMS,null,2);
 };
 
 module.exports.join_room = (id_room, user) => {
-    if (ROOMS.findIndex['id_room']) {
-        let index_room_for_join = ROOMS.findIndex['id_room'];
+    id_room=Number(id_room);
+    if (ROOMS.findIndex(x => x.id === id_room) !== -1) {
+        let index_room_for_join = ROOMS.findIndex(x => x.id === id_room);
+        console.log(ROOMS.findIndex(x => x.id === id_room), ROOMS, id_room);
         let room_for_join = ROOMS[index_room_for_join];
         room_for_join.addRoomates(user);
-        return ('joined room:' + ROOMS.findIndex['id_room']);
+        return ('joined room:' + ROOMS.findIndex(x => x.id === id_room));
     } else {return ('Error 404. The room not found')};
 };
 
-  
