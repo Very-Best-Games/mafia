@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start-game": "node -r esm game.js",
+    "test": "jest --watch"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,12 @@
   },
   "homepage": "https://github.com/Very-Best-Games/mafia#readme",
   "dependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "babel-jest": "^26.3.0",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
+    "jest": "^26.4.0",
     "nanoid": "^3.1.12"
   }
 }
