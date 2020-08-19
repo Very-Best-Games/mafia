@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start-game": "node -r esm game.js",
+    "start": "nodemon --exec 'babel-node game.js'",
     "test": "jest --watch"
   },
   "repository": {
@@ -20,11 +20,12 @@
   "homepage": "https://github.com/Very-Best-Games/mafia#readme",
   "dependencies": {
     "@babel/core": "^7.11.1",
+    "@babel/node": "^7.10.5",
     "@babel/preset-env": "^7.11.0",
     "babel-jest": "^26.3.0",
-    "esm": "^3.2.25",
     "express": "^4.17.1",
     "jest": "^26.4.0",
-    "nanoid": "^3.1.12"
+    "nanoid": "^3.1.12",
+    "nodemon": "^2.0.4"
   }
 }
