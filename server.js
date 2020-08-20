@@ -34,7 +34,8 @@
 const express = require('express')
 const app = express()
 const port = 3000
-const rooms = require('./ rooms');
+const rooms = require('./rooms');
+const storageDataMafia = require('./storageDataMafia');
 
 
 // Homepage
@@ -45,21 +46,27 @@ app.get('/', (req, res) => {
 
 // Список комнат
 app.get('/all-rooms', (req, res) => {
-  res.send(rooms.getAllRooms());
+  res.send(JSON.stringify(rooms.getAllRooms(), null, 2));
 })
 
 
 // Комната
-app.get('/room/{id}', (req, res) => {
-    res.send(rooms.getRoomById(id));
-  })
+app.get('/room/:id', (req, res) => {
+  res.send(JSON.stringify(rooms.getRoomById(req.params["id"])),null,2);
+})
 
 app.get('/create-room', (req, res) => {
-    res.send(rooms.addRoom());
+  res.send(rooms.addRoom());
 })
 
 app.get('/join-room/:room_id/:user_name', (req, res) => {
-    res.send(rooms.join_room(req.params["room_id"], req.params["user_name"]))
+  res.send(rooms.join_room(req.params["room_id"], req.params["user_name"]))
+})
+
+
+// Хранение данных
+app.get('/save', (req, res) => {
+  res.send(storageDataMafia.save(rooms.getAllRooms()));
 })
 
 
