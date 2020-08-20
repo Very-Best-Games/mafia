@@ -7,7 +7,7 @@
 
 const states = {
   green: {
-    onEnter: () => {
+    enter: () => {
       console.log('green')
     },
     update: (traffic) => {
@@ -17,7 +17,7 @@ const states = {
     }
   },
   greenBlink: {
-    onEnter: () => {
+    enter: () => {
       console.log('green blinking')
     },
     update: (traffic) => {
@@ -33,7 +33,7 @@ const trafficLight = {
   currentState: undefined,
   changeState: (newState) => {
     trafficLight.currentState = newState
-    trafficLight.currentState.onEnter()
+    trafficLight.currentState.enter()
     trafficLight.elapsedTimeSinceLastStateChange = 0
   },
   interval: undefined,
