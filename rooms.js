@@ -25,27 +25,32 @@ function Room() {
 module.exports.addRoom = () => {
     let new_room = new Room();
     ROOMS.push(new_room);
-    //new_room.get_id();
 
-    return ('New room created. The rooms is:' + new_room.get_id());
+    return ('A New room created. The rooms is:' + new_room.get_id());
 };
 
 module.exports.getRoomById = (id_room) => {
-    return (ROOMS.indexOf(id_room));
+    id_room=Number(id_room);
+    console.log(id_room);
+    if (ROOMS.findIndex(x => x.id === id_room) !== -1) {
+        let index_room = ROOMS.findIndex(x => x.id === id_room);
+        console.log('Найденный номер:', index_room, ', Запрошенный номер:', id_room, ROOMS[index_room]);
+        return (ROOMS[index_room]);
+    } else {return ('Error 404. The room not found')}
 };
 
 module.exports.getAllRooms = () => {
-    return JSON.stringify(ROOMS,null,2);
+    return (ROOMS);
 };
 
 module.exports.join_room = (id_room, user) => {
     id_room=Number(id_room);
     if (ROOMS.findIndex(x => x.id === id_room) !== -1) {
         let index_room_for_join = ROOMS.findIndex(x => x.id === id_room);
-        console.log(ROOMS.findIndex(x => x.id === id_room), ROOMS, id_room);
+        console.log(index_room_for_join, ROOMS, id_room);
         let room_for_join = ROOMS[index_room_for_join];
         room_for_join.addRoomates(user);
-        return ('joined room:' + ROOMS.findIndex(x => x.id === id_room));
+        return ('Joined room:' + index_room_for_join);
     } else {return ('Error 404. The room not found')};
 };
 
