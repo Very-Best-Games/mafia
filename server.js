@@ -1,4 +1,6 @@
 import express from 'express'
+import cookieParser from 'cookie-parser'
+import session from 'express-session'
 // https://github.com/expressjs/morgan/issues/190
 const morgan = require('morgan')
 
@@ -9,6 +11,16 @@ const PORT = 3000
 const app = express()
 
 app.use(morgan('tiny'))
+
+app.use(cookieParser());
+app.use(function(req, res, next) {
+  if (req.session.user) {
+    next()
+  } else {
+    addPlayer()
+    console.log(getAllPlayers())
+  }
+})
 
 app.get('/lobbies', (req, res) => {
   res.json(getAllLobbies())
