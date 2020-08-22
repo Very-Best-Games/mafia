@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid'
 import { save, load } from './persistence'
 
 export class Lobby {
-  constructor({ id = nanoid(), players = [] }) {
+  constructor({ id, players } = { id: nanoid(), players: [] }) {
     this.id = id
     this.players = players
   }
