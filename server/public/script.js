@@ -1,22 +1,27 @@
 const run = async () => {
-  document.getElementById('addPlayerForm').addEventListener('submit', async (e) => {
-    e.preventDefault()
 
-    const form = e.target
+  const listnerAdder = (item) => {
 
-    const lobbyId = form.lobbyId.value
-    const playerName = form.playerName.value
+    item.addEventListener('submit', async (e) => {
+      e.preventDefault()
 
-    if (playerName) {
-      await fetch(`/lobbies/${lobbyId}/${playerName}`, {
-        method: 'POST',
-      })
+      const form = e.target
 
-      window.location.reload()
-    }
+      const lobbyId = form.lobbyId.value
+      const playerName = form.playerName.value
+      if (playerName) {
+        await fetch(`/lobbies/${lobbyId}/${playerName}`, {
+          method: 'POST',
+        })
+        window.location.reload()
 
-    return false
-  })
+      }
+
+      return false
+    })
+  }
+  document.querySelectorAll('.addPlayerForm').forEach(listnerAdder)
+
 
   document.getElementById('addRoomButton').addEventListener('click', async (e) => {
     e.preventDefault()
