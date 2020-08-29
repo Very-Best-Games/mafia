@@ -1,0 +1,18 @@
+html
+    head
+        title Mafia
+    body
+        h1 Rooms
+        ul
+          each lobby in lobbies
+              li
+                  div= lobby.id
+                  div= lobby.players
+                  form.addPlayerForm
+                      input(name="lobbyId" type="hidden" value=lobby.id)
+                      input(name="playerName" placeholder="Player name")
+                      button Add a player
+
+        button#addRoomButton Add a room
+
+        script(src="./script.js")
