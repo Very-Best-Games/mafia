@@ -13,5 +13,5 @@ export const savePlayers = (data) => {
 }
 
 export const loadPlayers = () => {
-  return JSON.parse(fs.readFileSync(path.resolve(__dirname, './players.json')))
+  return JSON.parse(fs.readFileSync('./players.json'))
 }

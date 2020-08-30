@@ -2,10 +2,11 @@ import { nanoid } from 'nanoid'
 import { savePlayers, loadPlayers } from './persistence'
 
 export class Player {
-    constructor({ id } = { id: nanoid(), name: '' }) {
-      this.id = id
-      this.name = name
-    }
+  constructor({ id = nanoid(), name = '' }) {
+    console.log(id, name)
+    id = id
+    name = name
+  }
 }
 
 export const players = loadPlayers().map(playerData => new Player(playerData))
@@ -19,7 +20,9 @@ export const getPlayerById = (id) => {
 }
 
 export const addPlayer = () => {
+  console.log('add new player')
   let player = new Player()
+  console.log('added new player', player)
   players.push(player)
 
   savePlayers(players)

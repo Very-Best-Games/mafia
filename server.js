@@ -5,6 +5,7 @@ import session from 'express-session'
 const morgan = require('morgan')
 
 import { getAllLobbies, getLobbyById, addLobby, joinLobby } from './lobbies'
+import { getAllPlayers, getPlayerById, addPlayer } from './players'
 
 const PORT = 3000
 
@@ -13,13 +14,29 @@ const app = express()
 app.use(morgan('tiny'))
 
 app.use(cookieParser());
+console.log('cockie parser')
+app.use(session({
+  secret: 'secret',
+  name: 'mafia_game',
+  resave: true,
+  saveUninitialized: true
+}))
+console.log('secret')
 app.use(function(req, res, next) {
+  console.log(req.session.user)
   if (req.session.user) {
+    console.log('users session found.')
     next()
   } else {
+    console.log('users session not found.')
     addPlayer()
     console.log(getAllPlayers())
   }
+})
+
+app.get('/', (req, res) => {
+  console.log('in main')
+  res.json(getAllLobbies())
 })
 
 app.get('/lobbies', (req, res) => {
