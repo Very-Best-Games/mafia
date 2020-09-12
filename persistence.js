@@ -9,7 +9,7 @@ export const load = () => {
 }
 
 export const savePlayers = (data) => {
-  fs.writeFileSync(path.resolve(__dirname, './players.json'), JSON.stringify(data))
+  fs.writeFileSync('./players.json', JSON.stringify(data))
 }
 
 export const loadPlayers = () => {

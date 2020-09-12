@@ -2,10 +2,10 @@ import { nanoid } from 'nanoid'
 import { savePlayers, loadPlayers } from './persistence'
 
 export class Player {
-  constructor({ id = nanoid(), name = '' }) {
-    console.log(id, name)
-    id = id
-    name = name
+  constructor({ id } = { id: nanoid() }) {
+    console.log('Creating a new player')
+    console.log('Genered user:', id)
+    this.id = id
   }
 }
 

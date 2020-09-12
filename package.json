@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start-server": "nodemon --exec 'node -r esm ./server.js'",
+    "start": "nodemon --exec 'node -r esm ./server.js'",
     "test": "jest --watch"
   },
   "repository": {
