@@ -9,9 +9,9 @@ export const load = () => {
 }
 
 export const savePlayers = (data) => {
-  fs.writeFileSync('./players.json', JSON.stringify(data))
+  fs.writeFileSync('./sessions.json', JSON.stringify(data))
 }
 
 export const loadPlayers = () => {
-  return JSON.parse(fs.readFileSync('./players.json'))
+  return JSON.parse(fs.readFileSync('./sessions.json'))
 }
