@@ -1,6 +1,7 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
+import path from 'path'
 // https://github.com/expressjs/morgan/issues/190
 import morgan from 'morgan'
 
@@ -11,6 +12,10 @@ const PORT = 3000
 const app = express()
 var FileStore = require('session-file-store')(session);
 var fileStoreOptions = {};
+
+app.set('view engine', 'pug')
+app.set('views', path.join(__dirname, 'public'))
+app.use(express.static(path.join(__dirname, 'public')))
 
 app.use(morgan('tiny'))
 app.set('trust proxy', 1)
@@ -38,8 +43,12 @@ app.get('/', (req, res) => {
     addPlayer(req.session.id)
     console.log('All users:', getAllPlayers())
   }
-  
+
   res.json(getAllLobbies())
+})
+
+app.get('/', (req, res) => {
+  res.render('./index.pug', { lobbies: getAllLobbies() })
 })
 
 app.get('/lobbies', (req, res) => {
@@ -56,13 +65,11 @@ app.get('/lobbies/:lobbyId', (req, res) => {
   }
 })
 
-// TODO change to POST and remove add
-app.get('/lobbies-add', (req, res) => {
+app.post('/lobbies', (req, res) => {
   res.json(addLobby())
 })
 
-// TODO change to POST
-app.get('/lobbies/:lobbyId/:player', (req, res) => {
+app.post('/lobbies/:lobbyId/:player', (req, res) => {
   const lobbyId = req.params.lobbyId
   const player = req.params.player
 

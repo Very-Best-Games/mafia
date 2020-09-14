@@ -1,5 +1,5 @@
-import { game } from '../game/game.js'
-import { ROLE } from '../game/roles'
+import { game } from '../game.js'
+import { ROLE } from '../roles'
 
 test('test whole game', () => {
   game.start()
