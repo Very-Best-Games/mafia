@@ -44,10 +44,6 @@ app.get('/', (req, res) => {
     console.log('All users:', getAllPlayers())
   }
 
-  res.json(getAllLobbies())
-})
-
-app.get('/', (req, res) => {
   res.render('./index.pug', { lobbies: getAllLobbies() })
 })
 
