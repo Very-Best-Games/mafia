@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec 'node -r esm ./server/server.js'",
+    "dev": "nodemon --exec 'node -r esm ./server/server.js'",
+    "build": "next build",
+    "start": "cross-env NODE_ENV=production node -r esm ./server/server.js",
     "test": "jest --watch"
   },
   "repository": {
@@ -24,14 +26,17 @@
     "@babel/preset-env": "^7.11.0",
     "babel-jest": "^26.3.0",
     "cookie-parser": "^1.4.5",
+    "cross-env": "^7.0.2",
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "jest": "^26.4.0",
     "morgan": "^1.10.0",
     "nanoid": "^3.1.12",
+    "next": "^9.5.3",
     "nodemon": "^2.0.4",
-    "pug": "^3.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "session-file-store": "^1.4.0"
   }
 }
