@@ -8,14 +8,10 @@ const run = async () => {
       const form = e.target
 
       const lobbyId = form.lobbyId.value
-      const playerName = form.playerName.value
-      if (playerName) {
-        await fetch(`/lobbies/${lobbyId}/${playerName}`, {
-          method: 'POST',
-        })
-        window.location.reload()
-
-      }
+      await fetch(`/lobbies/${lobbyId}`, {
+        method: 'POST',
+      })
+      window.location.reload()
 
       return false
     })

@@ -5,7 +5,7 @@ import path from 'path'
 // https://github.com/expressjs/morgan/issues/190
 import morgan from 'morgan'
 
-import { getAllLobbies, getLobbyById, addLobby, joinLobby } from './lobbies'
+import { getAllLobbies, getLobbyById, addLobby } from './lobbies'
 import { getAllPlayers, getPlayerById, addPlayer } from './players'
 
 const PORT = 3000
@@ -21,12 +21,14 @@ app.use(morgan('tiny'))
 app.set('trust proxy', 1)
 
 app.use(cookieParser());
-console.log('coockie parser')
+console.log('cookie parser')
 
 
 app.use(session({
   secret: 'TheBestGameEver',
   store: new FileStore(fileStoreOptions),
+  resave: false,
+  saveUninitialized: true,
 }))
 console.log('session set')
 
@@ -62,19 +64,22 @@ app.get('/lobbies/:lobbyId', (req, res) => {
 })
 
 app.post('/lobbies', (req, res) => {
-  res.json(addLobby())
+  res.json(addLobby({players: [req.session.id]}))
 })
 
-app.post('/lobbies/:lobbyId/:player', (req, res) => {
+app.post('/lobbies/:lobbyId', (req, res) => {
   const lobbyId = req.params.lobbyId
-  const player = req.params.player
 
-  const lobby = joinLobby(lobbyId, player)
+  const lobby = getLobbyById(lobbyId)
   if (lobby) {
-    res.json(lobby)
-  } else {
-    res.sendStatus(404)
+    const playerId = req.session.id
+    if (!lobby.players.includes(playerId)) {
+      lobby.addPlayer(playerId)
+      return res.json(lobby)
+    }
+    return res.sendStatus(400)
   }
+  return res.sendStatus(404)
 })
 
 app.listen(PORT, () => {

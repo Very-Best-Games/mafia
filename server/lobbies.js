@@ -1,10 +1,12 @@
 import { nanoid } from 'nanoid'
 import { save, load } from './persistence'
+import { randomInt } from './utils/random'
 
 export class Lobby {
-  constructor({ id, players } = { id: nanoid(), players: [] }) {
-    this.id = id
-    this.players = players
+  constructor({ id, players, code } ) {
+    this.id = id || nanoid()
+    this.players = players || []
+    this.code = code || randomInt(1000, 9999)
   }
 
   addPlayer(player) {
@@ -24,21 +26,11 @@ export const getLobbyById = (id) => {
   return lobbies.find(lobby => lobby.id === id)
 }
 
-export const addLobby = () => {
-  let lobby = new Lobby()
+export const addLobby = (lobbyData) => {
+  let lobby = new Lobby(lobbyData)
   lobbies.push(lobby)
 
   save(lobbies)
 
   return lobby
 }
-
-export function joinLobby(id, player) {
-  const lobby = getLobbyById(id)
-  if (lobby) {
-    lobby.addPlayer(player)
-    return lobby
-  }
-  return null
-}
-

@@ -1,4 +1,3 @@
-//import { nanoid } from 'nanoid'
 import { savePlayers, loadPlayers } from './persistence'
 
 export class Player {

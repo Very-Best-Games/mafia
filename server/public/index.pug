@@ -10,9 +10,8 @@ html
                   div= lobby.players
                   form.addPlayerForm
                       input(name="lobbyId" type="hidden" value=lobby.id)
-                      input(name="playerName" placeholder="Player name")
-                      button Add a player
+                      button Join
 
-        button#addRoomButton Add a room
+        button#addRoomButton Host
 
         script(src="./script.js")
