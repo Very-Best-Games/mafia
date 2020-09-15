@@ -1,0 +1,13 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "08:00"
+    timezone: Europe/Moscow
+  open-pull-requests-limit: 5
+  target-branch: master
+  reviewers:
+  - Yankovsky
+  - ALegostaeva

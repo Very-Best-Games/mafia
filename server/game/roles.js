@@ -1,4 +1,4 @@
 export const ROLE = {
-  CITIZEN: 'CITIZEN',
-  MAFIA: 'MAFIA',
-}
+  CITIZEN: "CITIZEN",
+  MAFIA: "MAFIA",
+};

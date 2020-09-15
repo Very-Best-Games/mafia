@@ -1,6 +1,6 @@
 {
   "verbose": true,
-  "watch": ["server/**/*.js", "nodemon.json"],
+  "watch": ["server/**/*.js", "pages/api/**/*.js", "nodemon.json"],
   "env": {
     "NODE_ENV": "development"
   }

@@ -1,18 +1,18 @@
-import fs from 'fs'
-import path from 'path'
+import fs from "fs";
+import path from "path";
 
 export const save = (data) => {
-  fs.writeFileSync(path.resolve(__dirname, './lobbies.json'), JSON.stringify(data))
-}
+  fs.writeFileSync(path.resolve("./server/lobbies.json"), JSON.stringify(data));
+};
 
 export const load = () => {
-  return JSON.parse(fs.readFileSync(path.resolve(__dirname, './lobbies.json')))
-}
+  return JSON.parse(fs.readFileSync(path.resolve("./server/lobbies.json")));
+};
 
 export const savePlayers = (data) => {
-  fs.writeFileSync('./sessions.json', JSON.stringify(data))
-}
+  fs.writeFileSync("./server/sessions.json", JSON.stringify(data));
+};
 
 export const loadPlayers = () => {
-  return JSON.parse(fs.readFileSync('./sessions.json'))
-}
+  return JSON.parse(fs.readFileSync("./server/sessions.json"));
+};

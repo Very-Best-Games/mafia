@@ -7,7 +7,9 @@
     "dev": "nodemon --exec 'node -r esm ./server/server.js'",
     "build": "next build",
     "start": "cross-env NODE_ENV=production node -r esm ./server/server.js",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "test-ci": "jest --ci",
+    "lint": "eslint --fix --max-warnings=0 ."
   },
   "repository": {
     "type": "git",
@@ -24,13 +26,17 @@
     "@babel/core": "^7.11.1",
     "@babel/node": "^7.10.5",
     "@babel/preset-env": "^7.11.0",
+    "babel-eslint": "^10.1.0",
     "babel-jest": "^26.3.0",
     "cookie-parser": "^1.4.5",
     "cross-env": "^7.0.2",
+    "eslint": "^7.9.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "husky": "^4.3.0",
     "jest": "^26.4.0",
+    "lint-staged": "^10.3.0",
     "morgan": "^1.10.0",
     "nanoid": "^3.1.12",
     "next": "^9.5.3",
@@ -39,5 +45,15 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "session-file-store": "^1.4.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test-ci && lint-staged"
+    }
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "2.1.1"
   }
 }

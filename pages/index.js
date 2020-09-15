@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
-import Head from 'next/head'
+import React, { useState } from "react";
+import Head from "next/head";
 
 export async function getServerSideProps() {
-  const response = await fetch(`http://localhost:3000/lobbies`)
-  const lobbies = await response.json()
+  const response = await fetch(`http://localhost:3000/api/lobbies`);
+  const lobbies = await response.json();
 
-  return { props: { lobbies } }
+  return { props: { lobbies } };
 }
 
 export default function Home({ lobbies }) {
-  const [lobbiesSaved, setLobbies] = useState(lobbies)
+  const [lobbiesSaved, setLobbies] = useState(lobbies);
 
   return (
     <div className="container">
@@ -28,44 +28,55 @@ export default function Home({ lobbies }) {
         </p>
 
         <ul>
-          {lobbiesSaved.map(lobby => (
+          {lobbiesSaved.map((lobby) => (
             <li key={lobby.id}>
               <span>{lobby.id}</span>
               <ul>
-                {lobby.players.map(playerId => (
-                  <li key={playerId}>
-                    {playerId}
-                  </li>
+                {lobby.players.map((playerId) => (
+                  <li key={playerId}>{playerId}</li>
                 ))}
               </ul>
-              <form onSubmit={async (e) => {
-                e.preventDefault()
-                const response = await fetch(`/lobbies/${(lobby.id)}`, {
-                  method: 'POST',
-                })
-                const lobbyFromServer = await response.json()
-                const index = lobbiesSaved.findIndex(l => l.id === lobbyFromServer.id)
-                setLobbies(lobbiesSaved.map((item, i) => {
-                  if (i === index) {
-                    return lobbyFromServer
-                  }
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  const response = await fetch(
+                    `http://localhost:3000/api/lobbies/${lobby.id}`,
+                    {
+                      method: "POST",
+                    }
+                  );
+                  const lobbyFromServer = await response.json();
+                  const index = lobbiesSaved.findIndex(
+                    (l) => l.id === lobbyFromServer.id
+                  );
+                  setLobbies(
+                    lobbiesSaved.map((item, i) => {
+                      if (i === index) {
+                        return lobbyFromServer;
+                      }
 
-                  return item
-                }))
-              } }>
+                      return item;
+                    })
+                  );
+                }}
+              >
                 <button>Join</button>
               </form>
             </li>
           ))}
         </ul>
 
-        <button onClick={async () => {
-          const response = await fetch('/lobbies', {
-            method: 'POST',
-          })
-          const lobby = await response.json()
-          setLobbies(lobbiesSaved.concat(lobby))
-        }}>Host</button>
+        <button
+          onClick={async () => {
+            const response = await fetch("http://localhost:3000/api/lobbies", {
+              method: "POST",
+            });
+            const lobby = await response.json();
+            setLobbies(lobbiesSaved.concat(lobby));
+          }}
+        >
+          Host
+        </button>
 
         <div className="grid">
           <a href="https://nextjs.org/docs" className="card">
@@ -250,5 +261,5 @@ export default function Home({ lobbies }) {
         }
       `}</style>
     </div>
-  )
+  );
 }
