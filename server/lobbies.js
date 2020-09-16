@@ -12,6 +12,8 @@ export class Lobby {
   addPlayer(player) {
     this.players.push(player);
 
+    // TODO temp disable
+    // eslint-disable-next-line no-use-before-define
     save(lobbies);
   }
 }
@@ -27,7 +29,7 @@ export const getLobbyById = (id) => {
 };
 
 export const addLobby = (lobbyData) => {
-  let lobby = new Lobby(lobbyData);
+  const lobby = new Lobby(lobbyData);
   lobbies.push(lobby);
 
   save(lobbies);

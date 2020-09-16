@@ -1,12 +1,12 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import session from "express-session";
-import path from "path";
+import next from "next";
+import sessionFileStore from "session-file-store";
 // https://github.com/expressjs/morgan/issues/190
 import morgan from "morgan";
-import next from "next";
 
-import { getAllPlayers, getPlayerById, addPlayer } from "./players";
+import { getPlayerById, addPlayer } from "./players";
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 
@@ -17,14 +17,13 @@ const handle = nextApp.getRequestHandler();
 nextApp.prepare().then(() => {
   const server = express();
 
-  var FileStore = require("session-file-store")(session);
-  var fileStoreOptions = {};
+  const FileStore = sessionFileStore(session);
+  const fileStoreOptions = {};
 
   server.use(morgan("tiny"));
   server.set("trust proxy", 1);
 
   server.use(cookieParser());
-  console.log("cookie parser");
 
   server.use(
     session({
@@ -34,20 +33,12 @@ nextApp.prepare().then(() => {
       saveUninitialized: true,
     })
   );
-  console.log("session set");
 
   server.all((req, res, nextHandler) => {
-    console.log("in main", req.session.id);
     const player = getPlayerById(req.session.id);
-    console.log(player);
 
-    if (player) {
-      console.log("users session found.", req.session.id);
-      console.log("All users:", getAllPlayers());
-    } else {
-      console.log("users session not found.");
+    if (!player) {
       addPlayer(req.session.id);
-      console.log("All users:", getAllPlayers());
     }
 
     nextHandler();

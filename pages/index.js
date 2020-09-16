@@ -60,13 +60,14 @@ export default function Home({ lobbies }) {
                   );
                 }}
               >
-                <button>Join</button>
+                <button type="submit">Join</button>
               </form>
             </li>
           ))}
         </ul>
 
         <button
+          type="button"
           onClick={async () => {
             const response = await fetch("http://localhost:3000/api/lobbies", {
               method: "POST",

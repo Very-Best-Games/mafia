@@ -1,4 +1,4 @@
-import { game } from "../game.js";
+import { game } from "../game";
 import { ROLE } from "../roles";
 
 test("test whole game", () => {

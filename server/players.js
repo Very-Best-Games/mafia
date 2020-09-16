@@ -19,7 +19,7 @@ export const getPlayerById = (id) => {
 };
 
 export const addPlayer = (id) => {
-  let player = new Player(id);
+  const player = new Player(id);
   players.push(player);
 
   savePlayers(players);

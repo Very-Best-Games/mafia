@@ -1,7 +1,7 @@
 import { getLobbyById } from "../../../server/lobbies";
 
 export default (req, res) => {
-  const lobbyId = req.query.lobbyId;
+  const { lobbyId } = req.query;
 
   if (req.method === "POST") {
     const lobby = getLobbyById(lobbyId);
@@ -14,14 +14,13 @@ export default (req, res) => {
       return res.sendStatus(400);
     }
     return res.sendStatus(404);
-  } else if (req.method === "GET") {
+  }
+  if (req.method === "GET") {
     const lobby = getLobbyById(lobbyId);
     if (lobby) {
       return res.json(lobby);
-    } else {
-      return res.sendStatus(404);
     }
-  } else {
     return res.sendStatus(404);
   }
+  return res.sendStatus(404);
 };
