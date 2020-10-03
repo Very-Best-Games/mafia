@@ -39,7 +39,7 @@ export default function Home({ lobbies }) {
             const lobby = await response.json();
             setLobbies(lobbiesSaved.concat(lobby));
             const router = useRouter();
-            router.push('/'+lobby.id);
+            router.push(`/${lobby.id}`);
 
           }}
           >
