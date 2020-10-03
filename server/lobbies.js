@@ -10,6 +10,12 @@ export class Lobby {
   }
 
   addPlayer(player) {
+    if (this.players) {
+      
+      this.players.push({playerId: player});
+    } else {
+
+    }
     this.players.push(player);
 
     // TODO temp disable
@@ -35,4 +41,14 @@ export const addLobby = (lobbyData) => {
   save(lobbies);
 
   return lobby;
+};
+
+export const deleteLobby = (id) => {
+  const lobby = lobbies.find((lobby) => lobby.id === id);
+  if (lobby) {
+    lobbies.remove(lobby);
+    save(lobbies);
+    return;
+  }
+  return ('Not found');
 };

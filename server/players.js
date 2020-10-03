@@ -3,6 +3,7 @@ import { savePlayers, loadPlayers } from "./persistence";
 export class Player {
   constructor(id) {
     this.id = id;
+    this.name='';
   }
 }
 
@@ -20,9 +21,9 @@ export const getPlayerById = (id) => {
 
 export const addPlayer = (id) => {
   const player = new Player(id);
-  players.push(player);
+  //players.push(player);
 
-  savePlayers(players);
+  //savePlayers(players);
 
   return player;
 };
