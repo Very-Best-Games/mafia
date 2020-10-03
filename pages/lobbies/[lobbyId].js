@@ -2,7 +2,9 @@ import React from "react";
 
 export async function getServerSideProps(context) {
   const { lobbyId } = context.query;
-  const response = await fetch(`http://localhost:3000/api/lobbies/${lobbyId}`);
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_HOST}/api/lobbies/${lobbyId}`
+  );
   const lobby = await response.json();
 
   return { props: { lobby } };
