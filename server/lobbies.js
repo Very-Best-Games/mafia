@@ -6,16 +6,10 @@ export class Lobby {
   constructor({ id, players, code }) {
     this.id = id || nanoid();
     this.players = players || [];
-    this.code = code || randomInt(1000, 9999);
+    this.code = code || String(randomInt(1000, 9999));
   }
 
   addPlayer(player) {
-    if (this.players) {
-      
-      this.players.push({playerId: player});
-    } else {
-
-    }
     this.players.push(player);
 
     // TODO temp disable
@@ -34,6 +28,10 @@ export const getLobbyById = (id) => {
   return lobbies.find((lobby) => lobby.id === id);
 };
 
+export const getLobbyByCode = (code) => {
+  return lobbies.find((lobby) => lobby.code === code);
+};
+
 export const addLobby = (lobbyData) => {
   const lobby = new Lobby(lobbyData);
   lobbies.push(lobby);
@@ -44,11 +42,11 @@ export const addLobby = (lobbyData) => {
 };
 
 export const deleteLobby = (id) => {
-  const lobby = lobbies.find((lobby) => lobby.id === id);
+  const lobby = lobbies.find((item) => item.id === id);
   if (lobby) {
     lobbies.remove(lobby);
     save(lobbies);
-    return;
+    return true;
   }
-  return ('Not found');
+  return "Not found";
 };

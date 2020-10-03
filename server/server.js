@@ -1,3 +1,4 @@
+import path from "path";
 import express from "express";
 import cookieParser from "cookie-parser";
 import session from "express-session";
@@ -18,7 +19,9 @@ nextApp.prepare().then(() => {
   const server = express();
 
   const FileStore = sessionFileStore(session);
-  const fileStoreOptions = {};
+  const fileStoreOptions = {
+    path: path.resolve(__dirname, "../file-db/sessions"),
+  };
 
   server.use(morgan("tiny"));
   server.set("trust proxy", 1);
