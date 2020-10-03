@@ -1,3 +1,1 @@
-# MAFIA PULL REQUEST!
-
-Maximum powa!
+[Issue](https://github.com/Very-Best-Games/mafia/issues/###)
