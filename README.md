@@ -1,7 +1,7 @@
 # Mafia 
 
 Inspired by Among Us we decided to build our own [Mafia](https://en.wikipedia.org/wiki/Mafia_(party_game))-like game.
-We are planing to create simple turn-based game at first and see how it goes.
+We are planning to create a simple turn-based game at first and see how it goes.
 
 This project is mostly educational, but we hope that one day this game will be cool enough to actually play it xD.
 
