@@ -40,7 +40,7 @@ export default function LobbyId({ lobbyId }) {
           const lobby = await response.json();
           setLobbies(lobbiesSaved.concat(lobby));
           const router = useRouter();
-          router.push('/:{}', undefined, { shallow: true })
+          router.push(`/${lobby.id}`)
         }}
         >
             <h3>Create a city &rarr;</h3>
