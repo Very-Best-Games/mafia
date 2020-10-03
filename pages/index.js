@@ -6,9 +6,12 @@ export default function Home() {
   const router = useRouter();
 
   const hostNewGame = async () => {
-    const response = await fetch("http://localhost:3000/api/lobbies", {
-      method: "POST",
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_HOST}/api/lobbies`,
+      {
+        method: "POST",
+      }
+    );
     const lobby = await response.json();
 
     // TODO return or await or nothing?
@@ -20,13 +23,16 @@ export default function Home() {
 
     const code = e.target.code.value;
 
-    const response = await fetch(`http://localhost:3000/api/lobbies/join`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ code }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_HOST}/api/lobbies/join`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ code }),
+      }
+    );
     if (response.status === 200) {
       const lobbyFromServer = await response.json();
 

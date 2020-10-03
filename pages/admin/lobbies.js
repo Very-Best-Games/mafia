@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Head from "next/head";
 
 export async function getServerSideProps() {
-  const response = await fetch(`http://localhost:3000/api/lobbies`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/lobbies`);
   const lobbies = await response.json();
 
   return { props: { lobbies } };
@@ -12,9 +12,12 @@ export default function Lobbies({ lobbies }) {
   const [lobbiesSaved, setLobbies] = useState(lobbies);
 
   const hostNewGame = async () => {
-    const response = await fetch("http://localhost:3000/api/lobbies", {
-      method: "POST",
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_HOST}/api/lobbies`,
+      {
+        method: "POST",
+      }
+    );
     const lobby = await response.json();
     setLobbies(lobbiesSaved.concat(lobby));
   };
@@ -22,7 +25,7 @@ export default function Lobbies({ lobbies }) {
   const joinGame = (lobby) => async (e) => {
     e.preventDefault();
     const response = await fetch(
-      `http://localhost:3000/api/lobbies/${lobby.id}`,
+      `${process.env.NEXT_PUBLIC_HOST}/api/lobbies/${lobby.id}`,
       {
         method: "POST",
       }

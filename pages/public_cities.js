@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 import Link from "next/link";
 
 export async function getServerSideProps() {
-  const response = await fetch(`http://localhost:3000/api/lobbies`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/lobbies`);
   const lobbies = await response.json();
 
   return { props: { lobbies } };
@@ -11,71 +11,64 @@ export async function getServerSideProps() {
 
 export default function Home({ lobbies }) {
   const [lobbiesSaved, setLobbies] = useState(lobbies);
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <div className="container">
-        <main>
-            <h1 className="title">
-            <p>Train to</p>
-            </h1>
+      <main>
+        <h1 className="title">
+          <p>Train to</p>
+        </h1>
 
-            <p className="description">
-                Choose your destination.
-            </p>
+        <p className="description">Choose your destination.</p>
 
-            <ul>
-                {lobbiesSaved.map((lobby) => (
-                    <li key={lobby.id}>
-                    <span>
-                        <Link href="/[lobbyId]" as={"/" + lobby.id}>
-                            <a>{lobby.id}</a>
-                        </Link>
-                    </span>
-                    <ul>
-                        {lobby.players.map((playerId) => (
-                        <li key={playerId}>{playerId}</li>
-                        ))}
-                    </ul>
-                    <form
-                        onSubmit={async (e) => {
-                        e.preventDefault();
-                        const response = await fetch(
-                            `http://localhost:3000/api/lobbies/${lobby.id}`,
-                            {
-                            method: "POST",
-                            }
-                        );
-                        const lobbyFromServer = await response.json();
-                        const index = lobbiesSaved.findIndex(
-                            (l) => l.id === lobbyFromServer.id
-                        );
-                        setLobbies(
-                            lobbiesSaved.map((item, i) => {
-                            if (i === index) {
-                                return lobbyFromServer;
-                            }
-
-                            return item;
-                            })
-                        );
-                        }}
-                    >
-                        <button type="submit">Join</button>
-                    </form>
-                    </li>
+        <ul>
+          {lobbiesSaved.map((lobby) => (
+            <li key={lobby.id}>
+              <span>
+                <Link href="/[lobbyId]" as={`/${lobby.id}`}>
+                  <a>{lobby.id}</a>
+                </Link>
+              </span>
+              <ul>
+                {lobby.players.map((playerId) => (
+                  <li key={playerId}>{playerId}</li>
                 ))}
-            </ul>
+              </ul>
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  const response = await fetch(
+                    `process.env.NEXT_PUBLIC_HOST/api/lobbies/${lobby.id}`,
+                    {
+                      method: "POST",
+                    }
+                  );
+                  const lobbyFromServer = await response.json();
+                  const index = lobbiesSaved.findIndex(
+                    (l) => l.id === lobbyFromServer.id
+                  );
+                  setLobbies(
+                    lobbiesSaved.map((item, i) => {
+                      if (i === index) {
+                        return lobbyFromServer;
+                      }
 
-        
-            <span 
-                onClick={() => 
-                router.back()}
-            >
-                Click here to go back
-            </span> 
+                      return item;
+                    })
+                  );
+                }}
+              >
+                <button type="submit">Join</button>
+              </form>
+            </li>
+          ))}
+        </ul>
 
-        </main>
+        <button type="button" onClick={() => router.back()}>
+          Click here to go back
+        </button>
+      </main>
     </div>
-  )
+  );
 }
