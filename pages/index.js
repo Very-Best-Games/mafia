@@ -52,6 +52,7 @@ export default function Home() {
 
       <main>
         <h1 className="title">
+          <p>{process.env.NEXT_PUBLIC_HOST}</p>
           <p>Welcome to The Mafia World!</p>
         </h1>
 
