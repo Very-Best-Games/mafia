@@ -8,7 +8,6 @@ export class Lobby {
     this.id = id || nanoid();
     this.players = players || [];
     this.code = code || String(randomInt(1000, 9999));
-    this.expirationId = 0;
     this.hit();
   }
 
@@ -23,15 +22,10 @@ export class Lobby {
 
   // every time this function is called, a new timeout is generated
   hit() {
-    this.expirationId += 1;
-    const id = this.expirationId;
-    setTimeout(() => this.expire(id), LOBBY_LIFESPAN);
-  }
-
-  expire(expireId) {
-    if (expireId === this.expirationId) {
-      deleteLobby(this.id);
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
     }
+    this.timeoutId = setTimeout(() => deleteLobby(this.id), LOBBY_LIFESPAN);
   }
 }
 
