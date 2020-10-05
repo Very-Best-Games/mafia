@@ -2,11 +2,13 @@ import { nanoid } from "nanoid";
 import { save, load } from "./persistence";
 import { randomInt } from "./utils/random";
 
+export const LOBBY_LIFESPAN = 15 * 60000; // 15min
 export class Lobby {
   constructor({ id, players, code }) {
     this.id = id || nanoid();
     this.players = players || [];
     this.code = code || String(randomInt(1000, 9999));
+    this.hit();
   }
 
   addPlayer(player) {
@@ -15,6 +17,15 @@ export class Lobby {
     // TODO temp disable
     // eslint-disable-next-line no-use-before-define
     save(lobbies);
+    this.hit();
+  }
+
+  // every time this function is called, a new timeout is generated
+  hit() {
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
+    }
+    this.timeoutId = setTimeout(() => deleteLobby(this.id), LOBBY_LIFESPAN);
   }
 }
 
@@ -42,9 +53,10 @@ export const addLobby = (lobbyData) => {
 };
 
 export const deleteLobby = (id) => {
+  console.log("Deleting Lobby", id);
   const lobby = lobbies.find((item) => item.id === id);
   if (lobby) {
-    lobbies.remove(lobby);
+    lobbies.splice(lobby);
     save(lobbies);
     return true;
   }
