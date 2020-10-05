@@ -2,7 +2,7 @@ import { nanoid } from "nanoid";
 import { save, load } from "./persistence";
 import { randomInt } from "./utils/random";
 
-const LOBBY_TIMESPAN = 10000 // 30s
+export const LOBBY_LIFESPAN = 15 * 60000 // 15min
 export class Lobby {
   constructor({ id, players, code }) {
     this.id = id || nanoid();
@@ -23,8 +23,9 @@ export class Lobby {
 
   // every time this function is called, a new timeout is generated
   hit() {
-    this.expirationId++
-    setTimeout(() => this.expire(this.expirationId), LOBBY_TIMESPAN)
+	this.expirationId++
+	const id = this.expirationId
+    setTimeout(() => this.expire(id), LOBBY_LIFESPAN)
   }
 
   expire(expireId) {
