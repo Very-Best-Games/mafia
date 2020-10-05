@@ -2,14 +2,14 @@ import { nanoid } from "nanoid";
 import { save, load } from "./persistence";
 import { randomInt } from "./utils/random";
 
-export const LOBBY_LIFESPAN = 15 * 60000 // 15min
+export const LOBBY_LIFESPAN = 15 * 60000; // 15min
 export class Lobby {
   constructor({ id, players, code }) {
     this.id = id || nanoid();
     this.players = players || [];
-	this.code = code || String(randomInt(1000, 9999));
-	this.expirationId = 0
-	this.hit()
+    this.code = code || String(randomInt(1000, 9999));
+    this.expirationId = 0;
+    this.hit();
   }
 
   addPlayer(player) {
@@ -18,18 +18,20 @@ export class Lobby {
     // TODO temp disable
     // eslint-disable-next-line no-use-before-define
     save(lobbies);
-    this.hit()
+    this.hit();
   }
 
   // every time this function is called, a new timeout is generated
   hit() {
-	this.expirationId++
-	const id = this.expirationId
-    setTimeout(() => this.expire(id), LOBBY_LIFESPAN)
+    this.expirationId += 1;
+    const id = this.expirationId;
+    setTimeout(() => this.expire(id), LOBBY_LIFESPAN);
   }
 
   expire(expireId) {
-    if (expireId == this.expirationId) deleteLobby(this.id)
+    if (expireId === this.expirationId) {
+      deleteLobby(this.id);
+    }
   }
 }
 
@@ -49,7 +51,7 @@ export const getLobbyByCode = (code) => {
 
 export const addLobby = (lobbyData) => {
   const lobby = new Lobby(lobbyData);
-  lobbies.push(lobby);	
+  lobbies.push(lobby);
 
   save(lobbies);
 
@@ -57,7 +59,7 @@ export const addLobby = (lobbyData) => {
 };
 
 export const deleteLobby = (id) => {
-  console.log("Deleting Lobby", id)
+  console.log("Deleting Lobby", id);
   const lobby = lobbies.find((item) => item.id === id);
   if (lobby) {
     lobbies.splice(lobby);
