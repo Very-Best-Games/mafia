@@ -39,11 +39,12 @@ export default function Home({ lobbies }) {
                 onSubmit={async (e) => {
                   e.preventDefault();
                   const response = await fetch(
-                    `process.env.NEXT_PUBLIC_HOST/api/lobbies/${lobby.id}`,
+                    `${process.env.NEXT_PUBLIC_HOST}/api/lobbies/${lobby.id}`,
                     {
                       method: "POST",
                     }
                   );
+                  console.log("here 2");
                   const lobbyFromServer = await response.json();
                   const index = lobbiesSaved.findIndex(
                     (l) => l.id === lobbyFromServer.id

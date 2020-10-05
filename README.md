@@ -7,9 +7,9 @@ This project is mostly educational, but we hope that one day this game will be c
 
 ## Progress so far
 
-For now, we have lobbies, users with sessions and ability to join a lobby using a lobby code.
+For now, we have lobbies, users with sessions and ability to join a lobby using the lobby code.
 
-Also, we have a simplified state machine describing Mafia game and a simple test,
+As of now, we have a simplified state machine describing Mafia game and a simple test,
 which feeds some sample data to this state machine.
 
 ## We are looking for
