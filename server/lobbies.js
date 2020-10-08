@@ -25,7 +25,16 @@ export class Lobby {
     if (this.timeoutId) {
       clearTimeout(this.timeoutId);
     }
+    // eslint-disable-next-line no-use-before-define
     this.timeoutId = setTimeout(() => deleteLobby(this.id), LOBBY_LIFESPAN);
+  }
+
+  toJSON() {
+    return {
+      id: this.id,
+      players: this.players,
+      code: this.code,
+    };
   }
 }
 
