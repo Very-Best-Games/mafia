@@ -63,9 +63,9 @@ export const addLobby = (lobbyData) => {
 
 export const deleteLobby = (id) => {
   console.log("Deleting Lobby", id);
-  const lobby = lobbies.find((item) => item.id === id);
-  if (lobby) {
-    lobbies.splice(lobby);
+  const lobby = lobbies.findIndex((item) => item.id === id);
+  if (lobby > -1) {
+    lobbies.splice(lobby, 1);
     save(lobbies);
     return true;
   }
