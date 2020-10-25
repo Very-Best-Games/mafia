@@ -14,6 +14,7 @@ export default function Lobbies({ lobby }) {
   return (
     <div>
       <main>
+        <input id="cityName" placeholder="Enter a name of the city" />
         <table>
           <thead>
             <tr>

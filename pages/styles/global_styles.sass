@@ -9,7 +9,7 @@ html,
 body
     padding: 0
     margin: 0
-    font-family: $font-stack
+    font-family: 'PT Sans Narrow'
 
 
 *
@@ -49,6 +49,16 @@ footer a
 a
     color: inherit
     text-decoration: none
+
+button
+    transition-duration: 0.4s
+    background-color: white
+    color: black
+    border: 2px solid #000
+    padding: 12px 28px
+    &:hover
+        background-color: #0070f3 
+        color: white
 
 .title a 
     color: $color-border-hover
@@ -90,4 +100,22 @@ a
     width: 100%
     max-width: 600px
     margin-top: 3rem
+
+.city 
+    width: 100%
+    list-style:none
+    max-width: 480px
+    margin: 0 auto
+    padding: 15px 0
+    display: block
+    color: #000
+    text-decoration: none
+    position: relative
+    &.active
+        font-weight: 600
+
+li
+    border-bottom: 1px solid #000
+
+
 
